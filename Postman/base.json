@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "4a1d5b58-649e-4f3d-829e-90ef11e92d5b",
+		"name": "314-api-tests",
+		"description": "This collection contains tests for the various API requests in the CS314 webapp.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "42631378-4a1d5b58-649e-4f3d-829e-90ef11e92d5b"
+	},
+	"item": [
+		{
+			"name": "config",
+			"item": [
+				{
+					"name": "Config Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fc8567c0-ec09-472b-9737-a55f3c59a3df",
+								"exec": [
+									"pm.test(\"Response is HTTP200 status\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "a4e4eed1-9db4-4a16-bb43-d162bd57bcc5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestType\": \"config\",\n    \"features\": [\"config\"] \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/config",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"config"
+							]
+						},
+						"description": "Testing the result of Config Post requests."
+					},
+					"response": []
+				},
+				{
+					"name": "cougar-bad-config",
+					"id": "dac819e6-6421-4125-8768-c2443f195a74",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/config",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"config"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "8e451cc1-fe16-4298-9a24-c4921fc0af06"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "65678912-18d8-4d38-95ee-461eb6197045",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b7931119-0e1e-4a49-8666-2d7a6bd891d6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "22c08a32-9998-468c-85d7-69413301b916",
+			"key": "BASE_URL",
+			"value": "http://localhost:8000"
+		},
+		{
+			"id": "5f2ce70e-9dbb-408b-8a9a-b178e433aa18",
+			"key": "TEAM_NAME",
+			"value": "14++"
+		}
+	]
+}

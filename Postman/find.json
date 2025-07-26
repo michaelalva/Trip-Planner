@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "acc517a1-caf1-4010-bf00-90c9b9b2637b",
+		"name": "find",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "42631378-acc517a1-caf1-4010-bf00-90c9b9b2637b"
+	},
+	"item": [
+		{
+			"name": "base: correct status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "902c39e6-7fe1-48c7-83ca-5fca33787207",
+						"exec": [
+							"pm.test(\"Response is HTTP200 status\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "d3c9f38a-0aae-457b-9a53-62c9a5faab37",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"find\",\n    \"match\": \"denver\",\n    \"limit\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "duyalva: Request type is 'find'",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6e77615a-4778-471f-8936-30783229d03c",
+						"exec": [
+							"pm.test(\"Request type is 'find'\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.requestType).to.eql(\"find\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "8b1cc25e-9baf-4d74-bb4d-7f747596ff5b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"match\": \"manila\",\r\n    \"limit\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "duyalva: place has required properties",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3872910f-b007-4911-a606-669ec7e40968",
+						"exec": [
+							"pm.test(\"Each place has required properties\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    if (jsonData.places.length > 0) {\r",
+							"        const place = jsonData.places[0];\r",
+							"        pm.expect(place).to.have.property(\"name\");\r",
+							"        pm.expect(place).to.have.property(\"latitude\");\r",
+							"        pm.expect(place).to.have.property(\"longitude\");\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "6a5a549c-eb86-4c5d-8af9-1a8878b452d6",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestType\": \"find\",\r\n  \"match\"      : \"Denver\",\r\n  \"type\"       : [\"airport\"],\r\n  \"where\"      : [\"United States\"],\r\n  \"limit\"      : 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "f7d840ad-eef7-487c-8635-8cfea368938a",
+		"name": "tour",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "42631378-f7d840ad-eef7-487c-8635-8cfea368938a"
+	},
+	"item": [
+		{
+			"name": "base: correct status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "521f43d2-b33a-4795-b4c9-238275a168be",
+						"exec": [
+							"pm.test(\"Response is HTTP400 status\", () => {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "d5ff62d7-8281-4e79-9ad4-2aeb9ab3ccb1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"tour\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "leoo: correctly sorts items in terms of distance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fe2238fb-91d7-461f-82f3-a52bce9b35a6",
+						"exec": [
+							"pm.test(\"Notes fields are in correct order\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    \r",
+							"    const expectedOrder = [\"1st\", \"2nd\", \"3rd\"];\r",
+							"\r",
+							"    // Assume jsonData is an array of objects\r",
+							"    const actualOrder = jsonData.places.map(obj => obj.notes);\r",
+							"\r",
+							"    pm.expect(actualOrder).to.eql(expectedOrder);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "08498ca6-0565-408d-a6ab-32d2a3e8f368",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestType\"    : \"tour\",\r\n  \"earthRadius\"    : 3959.0,\r\n  \"response\"       : 1.0,\r\n  \"formula\"        : \"vincenty\",\r\n  \"places\"         : [{\"name\":\"place 1\",       \"latitude\": \"1.0\", \"longitude\": \"-105.0\", \"notes\":\"1st\"},\r\n                      {\"name\":\"place 2\",      \"latitude\": \"3.0\", \"longitude\": \"-105.0\", \"notes\":\"3rd\"},\r\n                      {\"name\":\"place 3\", \"latitude\": \"2.0\", \"longitude\": \"-105.0\", \"notes\":\"2nd\"}]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

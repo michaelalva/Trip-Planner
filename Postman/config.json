@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "661bdfb8-e764-430d-855d-94db56eb9229",
+		"name": "config",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "42631378-661bdfb8-e764-430d-855d-94db56eb9229"
+	},
+	"item": [
+		{
+			"name": "base: correct status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0418efce-0d8c-4276-be22-c5b7be622a9e",
+						"exec": [
+							"pm.test(\"Response is HTTP200 status\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "f11fca89-2234-4591-9ba9-3010080ebfad",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"config\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/config",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"config"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cougar: bad-config",
+			"id": "32eec6f8-eaf6-409b-b75e-6dd76edc6553",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"bad-config\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/config",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"config"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "bee34078-af05-4e1b-9e8a-df0f0506785f",
+			"key": "TEAM_NAME",
+			"value": ""
+		}
+	]
+}

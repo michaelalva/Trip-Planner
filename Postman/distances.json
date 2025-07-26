@@ -1,0 +1,340 @@
+{
+	"info": {
+		"_postman_id": "b4ab38be-894b-41f8-b3eb-e8ee79b8dad8",
+		"name": "distances",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "42631378-b4ab38be-894b-41f8-b3eb-e8ee79b8dad8"
+	},
+	"item": [
+		{
+			"name": "base: correct status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "38fa2a15-09ec-40e9-80b9-e8c39954e0fb",
+						"exec": [
+							"pm.test(\"Response is HTTP200 status\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "3f949562-c404-4743-830d-e435589a8e1c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"distances\",\n    \"places\": [],\n    \"earthRadius\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cougar: distances",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d17e07a6-b94a-49ad-a3ef-24b2f6415729",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test (\"Total is not a formula or string\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.total).to.not.match(/^=/, \"Total looks like a formula\");\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "828b92e6-979f-4ea6-872e-154871a50312",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "be3173d8-5286-46ff-b153-b43f1e059d67",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestType\"    : \"distances\",\r\n  \"places\"         : [{\"name\":\"place1\", \"latitude\":  \"40.6\",  \"longitude\": \"-105.1\"},\r\n                      {\"name\": \"place2\", \"latitude\":  \"-33.9\", \"longitude\": \"151.2\"},\r\n                      {\"name\": \"place3\", \"latitude\":  \"-57.9\", \"longitude\": \"175.2\"}],\r\n  \"earthRadius\"    : 6371.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "leoo: haversine returns correct distance with large earth radius",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a4df755-b83d-454d-8f2c-fc44dc77ced7",
+						"exec": [
+							"pm.test(\"Distances object matches expected values\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedDistances = [1000754339801, 1000754339801];\r",
+							"\r",
+							"    pm.expect(jsonData.distances).to.eql(expectedDistances);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "2d13caa3-3a4e-495c-bd79-a61a674e55ab",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestType\"    : \"distances\",\r\n  \"formula\"        : \"haversine\",\r\n  \"places\"         : [{\"name\":\"place1\", \"latitude\":  \"0.0\",  \"longitude\": \"-180.0\"},\r\n                      {\"name\": \"place2\", \"latitude\":  \"90.0\", \"longitude\": \"0.0\"}\r\n                      ],\r\n  \"earthRadius\"    : 637100000000.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "leoo: vincenty returns correct distances with large earth radius",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "df41d960-01c0-4831-9ff6-b9871add3207",
+						"exec": [
+							"pm.test(\"Distances object matches expected values\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedDistances = [1000754339801, 1000754339801];\r",
+							"\r",
+							"    pm.expect(jsonData.distances).to.eql(expectedDistances);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "b616f6b4-b051-4df0-b2ed-ba3a75c97e42",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestType\"    : \"distances\",\r\n  \"formula\"        : \"vincenty\",\r\n  \"places\"         : [{\"name\":\"place1\", \"latitude\":  \"0.0\",  \"longitude\": \"-180.0\"},\r\n                      {\"name\": \"place2\", \"latitude\":  \"90.0\", \"longitude\": \"0.0\"}\r\n                      ],\r\n  \"earthRadius\"    : 637100000000.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "leoo: cosines returns correct distances with large earth radius",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5dde38a-422d-4439-8831-8b4f54d1b210",
+						"exec": [
+							"pm.test(\"Distances object matches expected values\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const expectedDistances = [1000754339801, 1000754339801];\r",
+							"\r",
+							"    pm.expect(jsonData.distances).to.eql(expectedDistances);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "4fe64a51-e616-4213-8d74-ad3ca3308eb3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestType\"    : \"distances\",\r\n  \"formula\"        : \"cosines\",\r\n  \"places\"         : [{\"name\":\"place1\", \"latitude\":  \"0.0\",  \"longitude\": \"-180.0\"},\r\n                      {\"name\": \"place2\", \"latitude\":  \"90.0\", \"longitude\": \"0.0\"}\r\n                      ],\r\n  \"earthRadius\"    : 637100000000.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bryce24: distances checking array response",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a1a8e2cb-efdb-4741-81a5-6c0a96b74832",
+						"exec": [
+							"//first check if http is okay",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"let response = pm.response.json();",
+							"",
+							"// Checking that the response has a 'distances' array",
+							"pm.test(\"Response has 'distances' array\", function () {",
+							"    pm.expect(response).to.have.property(\"distances\");",
+							"    pm.expect(response.distances).to.be.an(\"array\");",
+							"    pm.expect(response.distances.length).to.eql(4); // Expecting 4 results",
+							"});",
+							"",
+							"//non negative number",
+							"pm.test(\"Each distance is a valid non-negative number\", function () {",
+							"    response.distances.forEach(distance => {",
+							"        pm.expect(typeof distance).to.eql(\"number\");",
+							"        pm.expect(distance).to.be.at.least(0);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "0e7142a4-4f69-41ad-9f60-a87b2e2e01ca",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"requestType\": \"distances\",\n  \"places\": [\n    { \"name\": \"NW\", \"latitude\": \"35.4698\", \"longitude\": \"-117.6972\" },\n    { \"name\": \"SW\", \"latitude\": \"-28.6036\", \"longitude\": \"-65.4905\" },\n    { \"name\": \"NE\", \"latitude\": \"47.0478\", \"longitude\": \"93.5912\" },\n    { \"name\": \"SE\", \"latitude\": \"-27.8291\", \"longitude\": \"122.5956\" }\n  ],\n  \"earthRadius\": 6975240.59\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "468fd25f-4805-4885-bdd1-7033398e81b6",
+		"name": "near",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "42597929-468fd25f-4805-4885-bdd1-7033398e81b6"
+	},
+	"item": [
+		{
+			"name": "leoo: correct status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fffaf715-9198-4dac-ac66-b7ca96c07780",
+						"exec": [
+							"pm.test(\"Response is HTTP200 status\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "20d67d08-4a0f-455e-91c7-2089cca2ccb6",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestType\"    : \"near\",\r\n  \"place\"          : {\"latitude\":\"40.5762\", \"longitude\":\"-105.0808\"},\r\n  \"distance\"       : 5,\r\n  \"earthRadius\"    : 3959,\r\n  \"formula\"        : \"vincenty\",\r\n  \"limit\"          : 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "zack722: shorter request tests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "660bc063-abca-4dd3-bfdc-38ffede13cce",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "790410e7-0aaa-4980-a2eb-601dda148eef",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"requestType\"    : \"near\",\n  \"place\"          : {\"latitude\":\"40.5762\", \"longitude\":\"-105.0808\"},\n  \"distance\"       : 5,\n  \"earthRadius\"    : 3959,\n  \"formula\"        : \"vincenty\",\n  \"limit\"          : 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "duyalva: valid coordinates and limit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "711b99c1-88b2-41ea-98c9-b36e7fbe2eb3",
+						"exec": [
+							"pm.test(\"Items (if array) are within distance and contain valid coordinates\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    const isArray = Array.isArray(jsonData);",
+							"    if (isArray) {",
+							"        jsonData.forEach(place => {",
+							"            pm.expect(place).to.have.property(\"latitude\");",
+							"            pm.expect(place).to.have.property(\"longitude\");",
+							"            const lat = parseFloat(place.latitude);",
+							"            const lon = parseFloat(place.longitude);",
+							"            pm.expect(lat).to.be.within(-90, 90);",
+							"            pm.expect(lon).to.be.within(-180, 180);",
+							"        });",
+							"        pm.expect(jsonData.length).to.be.at.most(3);",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "fb5c9b90-3076-4a25-abc2-38202d896d31",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"requestType\": \"near\",\n  \"place\"      : {\"latitude\":\"55.631\", \"longitude\":\"21.231\"},\n  \"distance\"   : 10,\n  \"earthRadius\": 6371,\n  \"limit\"      : 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bryce24: trying postman out-correct-response",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4fccee0b-1c2f-4419-b39a-8627310eb7a1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "137d95bb-f87e-4a7c-a8f7-97851c44de0f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"requestType\"    : \"near\",\n  \"place\"          : {\"latitude\":\"36\", \"longitude\":\"-115.0808\"},\n  \"distance\"       : 5,\n  \"earthRadius\"    : 3900,\n  \"formula\"        : \"haversine\",\n  \"limit\"          : 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/near",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"near"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
