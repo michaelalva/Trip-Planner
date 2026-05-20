@@ -1,0 +1,74 @@
+name: nightly
+
+# This workflow includes building and testing the client
+
+# This triggers the workflow at the assigned time every night.
+# daily at 9:14 am UTC (2:14 am MT)
+on:
+  schedule:
+    - cron: "14 9 * * *" 
+
+jobs:
+  nightly:
+
+    runs-on: [self-hosted, linux, x64]
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - name: Prepare for checkout # Avoids broken submodule self-hosted runner bug on checkout v2
+      run: |
+        git checkout -f $(git -c user.name="CS314 Runner" -c user.email="cs314@colostate.edu" commit-tree $(git hash-object -t tree /dev/null) < /dev/null) || :
+
+    - uses: actions/checkout@v2
+
+    - name: Prevent submodules from being added
+      run: |
+        echo "Submodules are not allowed in this repository. If a failure occurs on this step, please remove the submodule."
+        substatus=$(git submodule status)
+        if [[ $substatus != "" ]]; then
+          printf "Submodule status: $substatus\n"
+          exit 1
+        fi
+
+    - name: Verify about images
+      run: check-images
+
+    - run: verify_workflows
+
+    - name: Set up java (jdk-11)
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+
+    - name: Log originating commit ID
+      run: echo "full_sha1=$(git cat-file -p HEAD | grep parent | tail -1 | cut -d' ' -f2)" >> $GITHUB_ENV 
+
+    - name: Install server dependencies
+      run: cache_dependencies server
+
+    - name: Get Coverage
+      run: prep-qlty
+      
+    - name: Build & test server with maven
+      run: mvn -f server --global-settings server/.m2/settings.xml -Drevision=ci verify
+
+    - name: Report Coverage
+      env:
+        QLTY_COVERAGE_TOKEN: ${{ vars.QLTY_COVERAGE_TOKEN }}
+        CC_TEST_REPORTER_ID: ${{ vars.CC_REPORTER_ID }}
+        GIT_COMMIT_SHA: ${{ github.sha }} 
+        GIT_BRANCH: "main"
+        JACOCO_SOURCE_PATH: server/src/main/java
+      run: report-qlty
+
+    - name: Alert on failure
+      env:
+        GH_ORGANIZATION_NAME: ${{ github.repository_owner }}
+        GH_REPOSITORY_NAME: ${{ github.event.repository.name }}
+        GH_RUN_ID_NUMBER: ${{ github.run_id }}
+      run: alert enqueue ~/alertqueue.csv nightly 1
+      if: failure()
+
