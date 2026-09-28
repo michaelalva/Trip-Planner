@@ -19,6 +19,6 @@ RUN mvn clean package -Dmaven.test.skip=true
 # Expose server port
 EXPOSE 4567
 
-# Run the compiled jar directly using the target directory prefix setup from pom.xml
+# Return to root and run the shaded jar from the target directory
 WORKDIR /app
-CMD ["java", "-jar", "target/server-local.jar", "4567"]
+CMD ["java", "-jar", "target/server-local-shaded.jar", "4567"]
