@@ -13,8 +13,8 @@ COPY . .
 # Move into server directory containing pom.xml
 WORKDIR /app/server
 
-# Build application and skip tests
-RUN mvn clean package -DskipTests
+# Build application by explicitly skipping test execution goals
+RUN mvn clean package -Dmaven.test.skip=true
 
 # Expose server port
 EXPOSE 4567
