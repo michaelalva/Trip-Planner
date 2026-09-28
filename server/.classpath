@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="s/bach/n/under/duyalva/cs314/t15/target/test-classes" path="src/test/java">
+	<classpathentry kind="src" output="Users/alvad/Projects/Trip-Planner/target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="s/bach/n/under/duyalva/cs314/t15/target/classes" path="src/main/java">
+	<classpathentry kind="src" output="Users/alvad/Projects/Trip-Planner/target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry excluding="**/*.java" kind="src" path="/s/parsons/g/under/leoo/cs314/t15/client/dist"/>
-	<classpathentry excluding="**" kind="src" output="s/bach/n/under/duyalva/cs314/t15/target/classes" path="src/main/resources">
+	<classpathentry excluding="**" kind="src" output="Users/alvad/Projects/Trip-Planner/target/classes" path="src/main/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="optional" value="true"/>
@@ -68,13 +68,13 @@
 	<classpathentry kind="var" path="M2_REPO/net/bytebuddy/byte-buddy-agent/1.11.19/byte-buddy-agent-1.11.19.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/objenesis/objenesis/3.2/objenesis-3.2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/github/stefanbirkner/system-lambda/1.2.0/system-lambda-1.2.0.jar"/>
-	<classpathentry excluding="**" kind="src" output="s/bach/n/under/duyalva/cs314/t15/target/classes" path=".._client_dist">
+	<classpathentry excluding="**" kind="src" output="Users/alvad/Projects/Trip-Planner/target/classes" path=".._client_dist">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="**" kind="src" output="s/bach/n/under/duyalva/cs314/t15/target/test-classes" path="src/test/resources">
+	<classpathentry excluding="**" kind="src" output="Users/alvad/Projects/Trip-Planner/target/test-classes" path="src/test/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="test" value="true"/>
@@ -86,7 +86,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="s/bach/n/under/duyalva/cs314/t15/target/generated-sources/annotations">
+	<classpathentry kind="src" path="Users/alvad/Projects/Trip-Planner/target/generated-sources/annotations">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
@@ -94,7 +94,7 @@
 			<attribute name="m2e-apt" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="s/bach/n/under/duyalva/cs314/t15/target/test-classes" path="s/bach/n/under/duyalva/cs314/t15/target/generated-test-sources/test-annotations">
+	<classpathentry kind="src" output="Users/alvad/Projects/Trip-Planner/target/test-classes" path="Users/alvad/Projects/Trip-Planner/target/generated-test-sources/test-annotations">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
@@ -103,5 +103,5 @@
 			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="output" path="s/bach/n/under/duyalva/cs314/t15/target/classes"/>
+	<classpathentry kind="output" path="Users/alvad/Projects/Trip-Planner/target/classes"/>
 </classpath>
