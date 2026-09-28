@@ -13,11 +13,12 @@ COPY . .
 # Move into server directory containing pom.xml
 WORKDIR /app/server
 
-# Build application by explicitly skipping test execution goals
+# Build the shaded jar and skip tests
 RUN mvn clean package -Dmaven.test.skip=true
 
 # Expose server port
 EXPOSE 4567
 
-# Run application script
-CMD ["./bin/run.sh"]
+# Run the compiled jar directly using the target directory prefix setup from pom.xml
+WORKDIR /app
+CMD ["java", "-jar", "target/server-local.jar", "4567"]
