@@ -1,8 +1,8 @@
-# Use an official OpenJDK image as base
+# Use official OpenJDK image as base
 FROM eclipse-temurin:17-jdk-jammy
 
-# Install Node.js (needed to build the React frontend)
-RUN apt-get update && apt-get install -y nodejs npm
+# Install Maven, Node.js, and npm
+RUN apt-get update && apt-get install -y maven nodejs npm
 
 # Set working directory
 WORKDIR /app
@@ -10,11 +10,11 @@ WORKDIR /app
 # Copy project files
 COPY . .
 
-# Build the application 
+# Build application
 RUN mvn clean package
 
-# Expose the port Java Spark app runs on 
+# Expose server port
 EXPOSE 4567
 
-# Command to run app
+# Run application script
 CMD ["./bin/run.sh"]
