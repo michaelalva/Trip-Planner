@@ -10,6 +10,9 @@ WORKDIR /app
 # Copy project files
 COPY . .
 
+# Move into server directory containing pom.xml
+WORKDIR /app/server
+
 # Build application
 RUN mvn clean package
 
