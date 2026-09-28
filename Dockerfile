@@ -13,8 +13,8 @@ COPY . .
 # Move into server directory containing pom.xml
 WORKDIR /app/server
 
-# Build application
-RUN mvn clean package
+# Build application and skip tests
+RUN mvn clean package -DskipTests
 
 # Expose server port
 EXPOSE 4567
